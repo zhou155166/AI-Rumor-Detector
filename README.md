@@ -2,20 +2,32 @@
 ## 第一步：软件准备
 Windows下win+R输入cmd回车进入命令提示符，在官网下找小于2.0.0选1.8.2：conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch-lts后发现pytorch版本竟然不对，是因为python版本不是低于3.8。
 
-卸载：conda remove pytorch torchvision torchaudio和conda remove cudatoolkit再conda clean --all。重试：conda create -n new_env python=3.8和conda activate new_env并conda init后
+卸载：conda remove pytorch torchvision torchaudio和conda remove cudatoolkit再conda clean --all。
+
+重试：conda create -n new_env python=3.8和conda activate new_env并conda init后
 
 发现python版本是降低了，但是下载pytorch会超时。考虑使用国内的镜像源，如清华大学的镜像源：
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/、
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/、
-conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/、
-conda config --set show_channel_urls yes。
+
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+
+conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
+
+conda config --set show_channel_urls yes
+
 重新conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch-lts -c conda-forge成功！
 ## 第二步：代码试运行
 train_model.py:
+
 import pandas as pd
+
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 from sklearn.linear_model import LogisticRegression
+
 from sklearn.metrics import accuracy_score, classification_report
+
 import joblib
 
 # 指定数据文件路径
